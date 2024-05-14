@@ -43,7 +43,7 @@ concurrency:
 jobs:
 
   pretty:
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted 
     steps:
     - uses: actions/checkout@v4
     - name: Bootstrap
@@ -52,7 +52,7 @@ jobs:
       run: script/make-pretty check
 
   check:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted 
     strategy:
       fail-fast: false
       matrix:
@@ -76,7 +76,7 @@ jobs:
       uses: codecov/codecov-action@v4
 
   rest-check:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     strategy:
       fail-fast: false
       matrix:
@@ -99,7 +99,7 @@ jobs:
       uses: codecov/codecov-action@v4
 
   script-check:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     env:
       BUILD_TARGET: script-check
       OTBR_COVERAGE: 1
@@ -115,7 +115,7 @@ jobs:
       uses: codecov/codecov-action@v4
 
   scan-build:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     env:
       BUILD_TARGET: scan-build
       CC: clang
@@ -130,7 +130,7 @@ jobs:
       run: tests/scripts/check-scan-build
 
   package:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     env:
       BUILD_TARGET: package
     steps:
@@ -147,7 +147,7 @@ jobs:
       run: script/test package
 
   simulation:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       BUILD_TARGET: check
     steps:
