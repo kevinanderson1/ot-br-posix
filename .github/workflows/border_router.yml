@@ -168,12 +168,17 @@ jobs:
       if: ${{ success() && steps.check_cache_result.outputs.cache-hit != 'true' }}
       run: |
         (cd third_party/openthread/repo && ./script/test get_thread_wireshark)
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+
     - name: Run Test
       if: ${{ success() && steps.check_cache_result.outputs.cache-hit != 'true' }}
       run: |
         export CI_ENV="$(bash <(curl -s https://codecov.io/env)) -e GITHUB_ACTIONS -e OTBR_COVERAGE"
         echo "CI_ENV=${CI_ENV}"
         sudo systemctl status avahi-daemon || true
+        sudo docker ps -a || true
         (cd third_party/openthread/repo && sudo -E ./script/test cert_suite ${{ matrix.cert_scripts }} || (sudo systemctl status avahi-daemon && false))
     - uses: actions/upload-artifact@v4
       if: ${{ failure() && steps.check_cache_result.outputs.cache-hit != 'true' }}
