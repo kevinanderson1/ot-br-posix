@@ -38,6 +38,7 @@ NAT64_SERVICE="${NAT64_SERVICE:-openthread}"
 FIREWALL="${FIREWALL:-1}"
 
 OTBR_MDNS="${OTBR_MDNS:-mDNSResponder}"
+OT_BACKBONE_CI="${OT_BACKBONE_CI:-0}"
 
 install_packages_apt()
 {
@@ -61,7 +62,9 @@ install_packages_apt()
     # mDNS
     sudo apt-get install --no-install-recommends -y libavahi-client3 libavahi-common-dev libavahi-client-dev
 
-    if [[ ${OTBR_MDNS} == "avahi" ]]; then
+    # Thread Certification tests require Avahi to publish records for tests. Since the
+    # same image is used for all tests this needs to be installed here.
+    if [[ ${OTBR_MDNS} == "avahi" || ${OT_BACKBONE_CI} == 1 ]]; then
         sudo apt-get install --no-install-recommends -y avahi-daemon
     fi
 
