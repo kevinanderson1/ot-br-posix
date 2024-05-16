@@ -169,8 +169,8 @@ jobs:
       run: |
         (cd third_party/openthread/repo && ./script/test get_thread_wireshark)
 
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
+        #    - name: Setup upterm session
+        # uses: lhotari/action-upterm@v1
 
     - name: Run Test
       if: ${{ success() && steps.check_cache_result.outputs.cache-hit != 'true' }}
