@@ -82,7 +82,7 @@ shutdown()
     if have systemctl; then
         systemctl is-active rsyslog && sudo systemctl stop rsyslog || echo 'Failed to stop rsyslog!'
         systemctl is-active dbus && sudo systemctl stop dbus || echo 'Failed to stop dbus!'
-        if [[ ${OTBR_MDNS} == "avahi" || ${OT_BACKBONE_CI} == 1]]; then
+        if [[ ${OTBR_MDNS} == "avahi" || ${OT_BACKBONE_CI} == 1 ]]; then
             systemctl is-active avahi-daemon && sudo systemctl stop avahi-daemon || echo 'Failed to stop avahi!'
         fi
         without WEB_GUI || systemctl is-active otbr-web && sudo systemctl stop otbr-web || echo 'Failed to stop otbr-web!'
